@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>面试题练习器</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" charset="utf-8">
+</head>
+<body>
+    <header>
+        <img src="images/mascot.jpg" class="header-logo" alt="Logo">
+        <nav>
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="home">首页</a></li>
+                <li><a href="#" class="nav-link" data-page="quiz">题库</a></li>
+                <li><a href="#" class="nav-link" data-page="wrong">错题本</a></li>
+                <li><a href="#" class="nav-link" data-page="favorites">收藏夹</a></li>
+                <li><a href="#" class="nav-link" data-page="stats">统计</a></li>
+            </ul>
+        </nav>
+        <div id="points-display" class="points-display"></div>
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
+            <span class="theme-icon sun">☀️</span>
+            <span class="theme-icon moon" style="display: none;">🌙</span>
+        </button>
+    </header>
+    <main>
+        <div class="welcome-banner">
+            <img src="images/mascot.jpg" class="welcome-mascot" alt="吉祥物">
+            <div class="welcome-text">
+                <h2>欢迎来到 AI 面试题练习器！</h2>
+                <p>共计 <span id="total-questions">50</span> 道题，已答 <span id="answered-questions">0</span> 道，加油冲刺！</p>
+            </div>
+        </div>
+        <section>
+            <h1>题库分类浏览区</h1>
+            <ul id="category-list"></ul>
+        </section>
+        <section>
+            <h1>题目列表展示</h1>
+            <ul id="question-list"></ul>
+        </section>
+    </main>
+    <footer>
+        <p>版权所有 &copy; 2026</p>
+    </footer>
+    <div class="screen-effect-overlay" id="screen-effect"></div>
+    <script src="js/chart.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
