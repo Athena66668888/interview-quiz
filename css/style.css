@@ -405,6 +405,19 @@ main h1 {
     opacity: 1;
 }
 
+.category-card.active {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.15);
+}
+
+.category-card.active::before {
+    opacity: 1;
+}
+
+.category-card.active .category-name {
+    color: var(--accent);
+}
+
 .category-name {
     font-size: 17px;
     font-weight: 600;

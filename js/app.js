@@ -68,6 +68,8 @@ let totalPoints = parseInt(localStorage.getItem('totalPoints') || '0');
 let quizStartTime = null;
 let quizTimerInterval = null;
 let quizTimes = JSON.parse(localStorage.getItem('quizTimes') || '{}');
+// 当前选中的分类（null 表示全部分类）
+let currentCategory = null;
 
 // 等级定义
 const LEVELS = [
@@ -124,7 +126,7 @@ function renderCategories() {
 
   // 添加"全部分类"选项
   const allLi = document.createElement('li');
-  allLi.className = 'category-card';
+  allLi.className = 'category-card' + (currentCategory === null ? ' active' : '');
   allLi.innerHTML = `
     <div class="category-name">全部分类</div>
     <div class="category-count">${QUESTIONS.length} 题</div>
@@ -133,13 +135,15 @@ function renderCategories() {
     // 清空搜索框并显示全部题目
     const searchInput = document.getElementById('search-input');
     if (searchInput) searchInput.value = '';
+    currentCategory = null;
+    renderCategories();
     renderQuestions();
   };
   categoryList.appendChild(allLi);
 
   Object.keys(categories).forEach(cat => {
     const li = document.createElement('li');
-    li.className = 'category-card';
+    li.className = 'category-card' + (currentCategory === cat ? ' active' : '');
     li.innerHTML = `
       <div class="category-name">${cat}</div>
       <div class="category-count">${categories[cat]} 题</div>
@@ -148,6 +152,8 @@ function renderCategories() {
       // 清空搜索框并按分类筛选
       const searchInput = document.getElementById('search-input');
       if (searchInput) searchInput.value = '';
+      currentCategory = cat;
+      renderCategories();
       renderQuestions(cat);
     };
     categoryList.appendChild(li);
@@ -858,9 +864,6 @@ function setupSearchListener() {
 
 // 执行搜索
 function performSearch(keyword) {
-  // 获取当前选中的分类
-  const activeCategory = document.querySelector('.category-card')?.textContent || null;
-
   // 搜索：在题目中查找关键词（不区分大小写）
   const searchResults = QUESTIONS.filter(q => {
     const matchText = q.question.toLowerCase();
@@ -870,12 +873,12 @@ function performSearch(keyword) {
 
   // 如果有分类筛选，在搜索结果中再筛选分类
   let filteredResults = searchResults;
-  if (activeCategory) {
-    filteredResults = searchResults.filter(q => q.category === activeCategory);
+  if (currentCategory) {
+    filteredResults = searchResults.filter(q => q.category === currentCategory);
   }
 
   // 渲染搜索结果
-  renderQuestions(activeCategory, filteredResults);
+  renderQuestions(currentCategory, filteredResults);
 }
 
 // 页面加载时初始化
