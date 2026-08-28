@@ -79,7 +79,7 @@
     </div>
     <div class="deck-footer" style="color:rgba(255,255,255,.6)">
       <span>答辩展示 · 2026.08.30</span>
-      <span class="slide-number" data-current="1" data-total="19"></span>
+      <span class="slide-number" data-current="1" data-total="22"></span>
     </div>
   </div>
   <div class="notes">大家好，我是XXX，今天给大家展示的是我用 AI 编程工具开发的 Java 面试题练习器。这个项目是学长布置的 AI 编程入门实践任务，要求学习 Claude Code 等 AI 工具，并按公司化流程开发一个作品。</div>
@@ -90,10 +90,10 @@
   <p class="eyebrow">Contents · 目录</p>
   <h2 class="h2">今天的六个章节</h2>
   <div class="grid g2 mt-l anim-stagger-list" data-anim-target>
-    <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">01</div><div><h4>项目背景</h4><p class="dim">任务来源、目标与学习路径</p></div></div></div>
+    <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">01</div><div><h4>项目背景</h4><p class="dim">任务来源、学习经历与学习路径</p></div></div></div>
     <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">02</div><div><h4>技术选型</h4><p class="dim">技术栈与 AI 工具链介绍</p></div></div></div>
-    <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">03</div><div><h4>功能展示</h4><p class="dim">核心功能、学习辅助、游戏化设计</p></div></div></div>
-    <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">04</div><div><h4>开发流程</h4><p class="dim">AI 辅助的迭代开发模式</p></div></div></div>
+    <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">03</div><div><h4>功能展示</h4><p class="dim">核心功能、性能优化、游戏化设计</p></div></div></div>
+    <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">04</div><div><h4>开发流程</h4><p class="dim">迭代开发 + 公司化流程 + CI/CD</p></div></div></div>
     <div class="card"><div class="row"><div class="h3 dim2" style="width:56px">05</div><div><h4>踩坑经验</h4><p class="dim">6 个典型问题与解决方案</p></div></div></div>
     <div class="card" style="grid-column:span 2"><div class="row"><div class="h3 dim2" style="width:56px">06</div><div><h4>总结与展望</h4><p class="dim">核心收获与未来改进方向</p></div></div></div>
   </div>
@@ -126,7 +126,19 @@
   <div class="notes">学长给的任务是学习 AI 编程工具，然后 vibe 一个作品出来答辩。核心思路是人做决策，AI 干活。参考资料包括小林笔记、JavaGuide 等。</div>
 </section>
 
-<!-- Slide 5: Section Divider - 技术选型 -->
+<!-- Slide 5: 学习经历 -->
+<section class="slide" data-deck-label="学习经历" data-anim="stagger-list">
+  <p class="kicker">Journey · 学习经历</p>
+  <h2 class="h2">一个月从零到项目</h2>
+  <div class="steps anim-stagger-list" data-anim-target>
+    <div class="step"><div class="num">1</div><h4>第一周：从零开始</h4><p>学习打字指法、安装 VS Code、了解计算机专业方向、学 Git 和 Markdown、注册 GitHub</p><span class="tag">打基础</span></div>
+    <div class="step"><div class="num">2</div><h4>第二周：搭建博客</h4><p>用 VitePress 搭建个人博客，学 Node.js、npm 依赖、脚手架，GitHub Pages 部署 + GitHub Action 自动化</p><span class="tag">初识项目</span></div>
+    <div class="step"><div class="num">3</div><h4>第三周：AI 编程</h4><p>学习 Claude Code、CC Switch、MCP、Skill，配置 GLM 大模型，开发面试题练习器</p><span class="tag">实战开发</span></div>
+  </div>
+  <div class="notes">一个月前我连打字都要看键盘。第一周学基础，第二周搭博客第一次接触项目概念，第三周开始用 AI 编程工具开发这个项目。</div>
+</section>
+
+<!-- Slide 6: Section Divider - 技术选型 -->
 <section class="slide tc center deco-soft-gradient" data-deck-label="技术选型" data-anim="rise-in">
   <div style="max-width:780px;margin:0 auto">
     <p class="kicker anim-fade-down" data-anim="fade-down">Section · 02</p>
@@ -283,7 +295,36 @@
   <div class="notes">统计页面提供正确率饼图和用时条形图，帮助分析学习效率和薄弱环节。</div>
 </section>
 
-<!-- Slide 13: Section Divider - 开发流程 -->
+<!-- Slide 13: 性能优化 -->
+<section class="slide" data-deck-label="性能优化" data-anim="stagger-list">
+  <p class="kicker">Performance · 性能优化</p>
+  <h2 class="h2">四个性能优化要点</h2>
+  <div class="glass-grid anim-stagger-list" data-anim-target>
+    <div class="glass-card blue">
+      <span class="icon">⚡</span>
+      <h3>零网络请求</h3>
+      <p>50 道题内嵌 JS 文件，不用 fetch 请求外部文件。避免 CORS 跨域问题，消除网络延迟，打开即用。</p>
+    </div>
+    <div class="glass-card green">
+      <span class="icon">💾</span>
+      <h3>localStorage 本地存储</h3>
+      <p>错题、收藏、连击、积分、答题用时全存浏览器本地。毫秒级读取，无需后端，刷新不丢失。</p>
+    </div>
+    <div class="glass-card warm">
+      <span class="icon">🎬</span>
+      <h3>GPU 动画加速</h3>
+      <p>CSS 动画用 transform 和 opacity，不触发浏览器重排，GPU 加速渲染。避免使用 top/left 属性。</p>
+    </div>
+    <div class="glass-card blue">
+      <span class="icon">🧹</span>
+      <h3>计时器防泄漏</h3>
+      <p>每次进入新题目前 clearInterval 清除上一个计时器，防止多个计时器同时运行导致内存泄漏。</p>
+    </div>
+  </div>
+  <div class="notes">性能优化方面有四个要点：零网络请求、localStorage 本地存储、CSS 动画用 transform 走 GPU 加速、计时器防泄漏。这些是 AI 建议的，我查资料理解了原理。</div>
+</section>
+
+<!-- Slide 14: Section Divider - 开发流程 -->
 <section class="slide tc center deco-soft-gradient" data-deck-label="开发流程" data-anim="rise-in">
   <div style="max-width:780px;margin:0 auto">
     <p class="kicker anim-fade-down" data-anim="fade-down">Section · 04</p>
@@ -309,7 +350,20 @@
   <div class="notes">开发流程分六步：需求分析、架构设计是人做的，AI 编码是 Claude Code 做的，然后人测试验证、反馈迭代、最后代码审查。这个流程体现了人做决策、AI 做执行的理念。</div>
 </section>
 
-<!-- Slide 15: Section Divider - 踩坑经验 -->
+<!-- Slide 16: 公司化流程 -->
+<section class="slide" data-deck-label="公司化流程" data-anim="stagger-list">
+  <p class="kicker">Company Flow · 公司化流程</p>
+  <h2 class="h2">完整的公司化开发流程</h2>
+  <div class="macaron-grid mt-l anim-stagger-list" data-anim-target>
+    <div class="macaron-card soft-purple"><div class="label">需求</div><div class="main">PRD 文档</div><div class="desc">开发前编写产品需求文档，明确功能范围和优先级</div></div>
+    <div class="macaron-card soft-blue"><div class="label">架构</div><div class="main">CLAUDE.md</div><div class="desc">定义技术选型、目录结构、代码规范</div></div>
+    <div class="macaron-card soft-green"><div class="label">版本</div><div class="main">Git + GitHub</div><div class="desc">9 次提交，完整版本管理记录</div></div>
+    <div class="macaron-card soft-orange"><div class="label">CI/CD</div><div class="main">GitHub Action</div><div class="desc">每次推送自动检查文件结构、语法、文档完整性</div></div>
+  </div>
+  <div class="notes">项目按照公司化流程推进：开发前写了 PRD 需求文档，用 CLAUDE.md 定义架构规范，Git 做版本管理，最后配了 GitHub Action 实现 CI/CD 自动检查。AI 写代码，我做需求决策和代码审查。</div>
+</section>
+
+<!-- Slide 17: Section Divider - 踩坑经验 -->
 <section class="slide tc center deco-soft-gradient" data-deck-label="踩坑经验" data-anim="rise-in">
   <div style="max-width:780px;margin:0 auto">
     <p class="kicker anim-fade-down" data-anim="fade-down">Section · 05</p>
@@ -369,8 +423,8 @@
   <h2 class="h2">核心收获与未来展望</h2>
   <ul class="grid g1 anim-stagger-list" style="list-style:none;padding:0;margin:0;gap:14px" data-anim-target>
     <li class="card card-accent"><h4>掌握了 AI 编程工具链</h4><p class="dim">Claude Code + CC Switch + MCP + Skill 的完整使用流程，理解了 AI 辅助开发的工作模式</p></li>
-    <li class="card card-accent"><h4>实践了公司化开发流程</h4><p class="dim">从需求分析到测试迭代，体验了人做决策、AI 做执行的协作模式</p></li>
-    <li class="card card-accent"><h4>完成了完整项目</h4><p class="dim">50 道题、14 项功能、Git 版本管理、GitHub 远程仓库、README 文档</p></li>
+    <li class="card card-accent"><h4>实践了公司化开发流程</h4><p class="dim">PRD 需求文档 + CLAUDE.md 架构规范 + Git 版本管理 + GitHub Action CI/CD</p></li>
+    <li class="card card-accent"><h4>完成了完整项目</h4><p class="dim">50 道题、14 项功能、Git 版本管理、GitHub 远程仓库、README + PRD 文档</p></li>
     <li class="card card-accent"><h4>未来展望</h4><p class="dim">移动端适配、答题记录导出、更多题库分类、后端 API 对接、多用户在线刷题</p></li>
   </ul>
   <div class="notes">总结四个核心收获：掌握了 AI 工具链、实践了公司化流程、完成了完整项目、明确了未来方向。GitHub 仓库地址：github.com/Athena66668888/interview-quiz</div>
