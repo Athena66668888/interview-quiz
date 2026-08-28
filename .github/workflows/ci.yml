@@ -1,0 +1,115 @@
+name: CI 代码质量检查
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    name: 代码质量检查
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 检查文件结构
+        run: |
+          echo "📋 检查项目文件结构..."
+          required_files=(
+            "index.html"
+            "css/style.css"
+            "js/app.js"
+            "CLAUDE.md"
+            "README.md"
+          )
+          missing=0
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ 缺失文件: $file"
+              missing=1
+            else
+              echo "✅ 找到文件: $file"
+            fi
+          done
+          if [ "$missing" -eq 1 ]; then
+            echo "⛔ 文件结构检查未通过"
+            exit 1
+          fi
+          echo "✅ 文件结构检查通过"
+
+      - name: 检查 HTML 语法
+        run: |
+          echo "📋 检查 HTML 语法..."
+          if grep -q "<html" index.html && grep -q "</html>" index.html; then
+            echo "✅ HTML 标签完整"
+          else
+            echo "❌ HTML 缺少必要的标签"
+            exit 1
+          fi
+
+      - name: 检查 CSS 语法
+        run: |
+          echo "📋 检查 CSS 语法..."
+          brace_open=$(grep -o '{' css/style.css | wc -l)
+          brace_close=$(grep -o '}' css/style.css | wc -l)
+          echo "  左括号: $brace_open, 右括号: $brace_close"
+          if [ "$brace_open" -ne "$brace_close" ]; then
+            echo "❌ CSS 括号不匹配 (开: $brace_open, 闭: $brace_close)"
+            exit 1
+          fi
+          echo "✅ CSS 括号匹配正常"
+
+      - name: 检查 JS 语法
+        run: |
+          echo "📋 检查 JS 基本语法..."
+          if grep -q "function" js/app.js; then
+            echo "✅ JS 函数定义正常"
+          else
+            echo "⚠️  未检测到函数定义，请检查"
+          fi
+          paren_open=$(grep -o '(' js/app.js | wc -l)
+          paren_close=$(grep -o ')' js/app.js | wc -l)
+          echo "  左括号: $paren_open, 右括号: $paren_close"
+          if [ "$paren_open" -ne "$paren_close" ]; then
+            echo "⚠️  JS 圆括号不匹配 (开: $paren_open, 闭: $paren_close)"
+          else
+            echo "✅ JS 圆括号匹配正常"
+          fi
+
+      - name: 检查图片资源
+        run: |
+          echo "📋 检查图片资源..."
+          if [ -d "images" ]; then
+            image_count=$(find images -type f | wc -l)
+            echo "✅ images 目录存在，包含 $image_count 个文件"
+          else
+            echo "⚠️  images 目录不存在"
+          fi
+
+      - name: 检查文档完整性
+        run: |
+          echo "📋 检查文档完整性..."
+          if [ -f "README.md" ]; then
+            readme_lines=$(wc -l < README.md)
+            echo "✅ README.md 存在 ($readme_lines 行)"
+          fi
+          if [ -f "docs/PRD.md" ]; then
+            echo "✅ PRD 文档存在"
+          fi
+          if [ -f "CLAUDE.md" ]; then
+            echo "✅ CLAUDE.md 开发规范存在"
+          fi
+
+      - name: 代码行数统计
+        run: |
+          echo "📊 代码行数统计:"
+          echo "  HTML: $(wc -l < index.html) 行"
+          echo "  CSS:  $(wc -l < css/style.css) 行"
+          echo "  JS:   $(wc -l < js/app.js) 行"
+          echo "  总计: $(cat index.html css/style.css js/app.js | wc -l) 行"
+
+      - name: 检查完成
+        run: echo "🎉 代码质量检查全部通过！"
